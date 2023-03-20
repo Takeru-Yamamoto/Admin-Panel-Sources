@@ -9,10 +9,9 @@
   "main": "index.js",
   "scripts": {
     "watch": "run-s watch:*",
-    "watch:sass": "sass src/sass/main.scss dist/css/style.css --style expanded --watch",
-    "watch:css": "postcss --use autoprefixer -b 'last 10 versions' dist/css/style.css -o dist/css/style.css",
+    "watch:sass": "sass src/sass/style.scss dist/css/style.css --style expanded --watch",
     "build": "run-s build:*",
-    "build:sass": "sass src/sass/main.scss dist/css/style.css --style compressed",
+    "build:sass": "sass src/sass/style.scss dist/css/style.css --style compressed",
     "build:css": "postcss --use autoprefixer -b 'last 10 versions' dist/css/style.css -o dist/css/style.css"
   },
   "keywords": [],
@@ -26,17 +25,17 @@
     "type": "git",
     "url": "https://github.com/Takeru-Yamamoto/Admin-Panel-Sources"
   },
-  "style": "dist/css/bootstrap.css",
-  "sass": "src/sass/bootstrap.scss",
+  "style": "dist/css/style.css",
+  "sass": "src/sass/style.scss",
   "files": [
-    "dist/{css,js}/*.{css,js,map}"
+    "dist/{css,js}/*.{css,js,map}",
+    "src/{sass,js}/*.{scss,js}"
   ],
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
-    "bootstrap": "^5.2.3",
     "postcss-cli": "^10.1.0",
     "sass": "^1.59.3"
   }

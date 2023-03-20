@@ -1,0 +1,135 @@
+@use "sass:math";
+/* Utils Colors */
+$colors: () !default;
+
+// Monotone
+$white: #ffffff !default;
+$light: #b4b4b4 !default;
+$gray: #787878 !default;
+$dark: #3c3c3c !default;
+$black: #000000 !default;
+
+$colors: map-merge(
+    (
+        "white": $white,
+        "light": $light,
+        "gray": $gray,
+        "dark": $dark,
+        "black": $black,
+    ),
+    $colors
+);
+
+// Primary
+$primary-red: #ff0000 !default;
+$primary-green: #00ff00 !default;
+$primary-blue: #0000ff !default;
+$primary-yellow: #ffff00 !default;
+$primary-magenta: #ff00ff !default;
+$primary-cyan: #00ffff !default;
+
+$colors: map-merge(
+    (
+        "primary-red": $primary-red,
+        "primary-green": $primary-green,
+        "primary-blue": $primary-blue,
+        "primary-yellow": $primary-yellow,
+        "primary-magenta": $primary-magenta,
+        "primary-cyan": $primary-cyan,
+    ),
+    $colors
+);
+
+// Etc.
+$red: #ff061f !default;
+$green: #00a656 !default;
+$blue: #0062ff !default;
+$yellow: #ffe500 !default;
+$magenta: #ff00e5 !default;
+$cyan: #00e5ff !default;
+
+$pink: #ff0684 !default;
+$purple: #641ee5 !default;
+$orange: #ff7a00 !default;
+$teal: #00f8ab !default;
+
+$colors: map-merge(
+    (
+        "red": $red,
+        "green": $green,
+        "blue": $blue,
+        "yellow": $yellow,
+        "magenta": $magenta,
+        "cyan": $cyan,
+    ),
+    $colors
+);
+
+$light-colors: () !default;
+$dark-colors: () !default;
+@each $colorName, $colorCode in $colors {
+    @if $colorName != "light" and $colorName != "dark" {
+        @if $colorName != "white" {
+            $light-colors: map-merge((#{$colorName}: #{mix($light, $colorCode, 25%)}), $light-colors);
+        }
+
+        @if $colorName != "black" {
+            $dark-colors: map-merge((#{$colorName}: #{mix($dark, $colorCode, 25%)}), $dark-colors);
+        }
+    }
+}
+
+:root {
+    @each $colorName, $colorCode in $colors {
+        --color-#{$colorName}: #{$colorCode};
+    }
+
+    @each $colorName, $colorCode in $light-colors {
+        --color-light-#{$colorName}: #{$colorCode};
+    }
+
+    @each $colorName, $colorCode in $dark-colors {
+        --color-dark-#{$colorName}: #{$colorCode};
+    }
+}
+
+@function colorContrast($targetColor) {
+    $colors: $light, $dark, $white, $black;
+
+    $contrast-ratio: luminance($targetColor);
+    @if $contrast-ratio > 0.5 {
+        @return $dark;
+    } @else {
+        @return $light;
+    }
+}
+
+@function luminance($color) {
+    $colors: (
+        "red": red($color),
+        "green": green($color),
+        "blue": blue($color),
+    );
+
+    @each $name, $value in $colors {
+        $adjusted: 0;
+        $value: calc($value / 255);
+
+        @if $value < 0.03928 {
+            $value: calc($value / 12.92);
+        } @else {
+            $value: calc(($value + 0.055) / 1.055);
+            $value: math.pow($value, 2.4);
+        }
+
+        $colors: map-merge(
+            $colors,
+            (
+                $name: $value,
+            )
+        );
+    }
+
+    @return (map-get($colors, "red") * 0.2126) + (map-get($colors, "green") * 0.7152) +
+        (map-get($colors, "blue") * 0.0722);
+}

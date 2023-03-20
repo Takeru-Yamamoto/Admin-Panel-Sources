@@ -1,0 +1,24 @@
+@use "../utils";
+
+/* Style Button */
+%button {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+}
+
+.btn {
+    @extend %button;
+}
+
+@each $colorName, $colorCode in utils.$colors {
+    .btn-#{$colorName} {
+        @extend %button;
+        color: utils.colorContrast($colorCode);
+        border: #{$colorCode};
+        background-color: #{$colorCode};
+        
+    }
+}

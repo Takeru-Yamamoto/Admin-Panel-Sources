@@ -1,0 +1,30 @@
+/* Style Text */
+p {
+    margin-top: var(--space-0);
+    margin-bottom: var(--space-md);
+}
+
+a {
+    color: var(--color-blue);
+    text-decoration: underline;
+
+    &:hover {
+        color: var(--color-dark-blue);
+    }
+
+    &:not([href]),
+    &:not([href]):hover {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+@for $i from 1 through 6 {
+    h#{$i},
+    .h#{$i} {
+        margin-top: var(--space-0);
+        margin-bottom: var(--space-xs);
+        line-height: var(--line-height-sm);
+        font-size: var(--font-size-h#{$i});
+    }
+}
