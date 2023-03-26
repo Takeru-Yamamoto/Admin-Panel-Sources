@@ -1,15 +1,22 @@
+@use "../utils" as u;
+
 /* Style Text */
+%text {
+    @include u.paddingTop("xxs");
+    @include u.paddingBottom("md");
+}
+
 p {
-    margin-top: var(--space-0);
-    margin-bottom: var(--space-md);
+    @extend %text;
 }
 
 a {
-    color: var(--color-blue);
+    @extend %text;
     text-decoration: underline;
+    @include u.color("blue");
 
     &:hover {
-        color: var(--color-dark-blue);
+        @include u.color("blue", "dark");
     }
 
     &:not([href]),
@@ -19,12 +26,53 @@ a {
     }
 }
 
-@for $i from 1 through 6 {
-    h#{$i},
-    .h#{$i} {
-        margin-top: var(--space-0);
-        margin-bottom: var(--space-xs);
-        line-height: var(--line-height-sm);
-        font-size: var(--font-size-h#{$i});
-    }
+label {
+    @extend %text;
+    display: inline-block;
+}
+
+%h {
+    @include u.lineHeight("sm");
+}
+
+h1,
+.h1 {
+    @extend %text;
+    @extend %h;
+    @include u.fontSize("xxxl");
+}
+
+h2,
+.h2 {
+    @extend %text;
+    @extend %h;
+    @include u.fontSize("xxl");
+}
+
+h3,
+.h3 {
+    @extend %text;
+    @extend %h;
+    @include u.fontSize("xl");
+}
+
+h4,
+.h4 {
+    @extend %text;
+    @extend %h;
+    @include u.fontSize("lg");
+}
+
+h5,
+.h5 {
+    @extend %text;
+    @extend %h;
+    @include u.fontSize("md");
+}
+
+h6,
+.h6 {
+    @extend %text;
+    @extend %h;
+    @include u.fontSize("sm");
 }

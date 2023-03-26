@@ -1,0 +1,33 @@
+// Valiables
+$line-height-xl: 2;
+$line-height-lg: 1.75;
+$line-height-md: 1.5;
+$line-height-sm: 1.25;
+$line-height-xs: 1;
+$line-heights: (
+    "xl": $line-height-xl,
+    "lg": $line-height-lg,
+    "md": $line-height-md,
+    "sm": $line-height-sm,
+    "xs": $line-height-xs,
+) !default;
+
+:root {
+    @each $line-height, $value in $line-heights {
+        --line-height-#{$line-height}: #{$value};
+    }
+}
+
+// --------------------
+
+// Mixins
+@mixin lineHeight($key) {
+    line-height: getLineHeight($key);
+}
+
+// --------------------
+
+// Functions
+@function getLineHeight($key) {
+    @return map-get($line-heights, $key);
+}

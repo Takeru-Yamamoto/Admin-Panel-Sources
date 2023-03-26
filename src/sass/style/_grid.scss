@@ -1,29 +1,57 @@
+@use "../utils" as u;
+
 /* Style Grid */
 .row {
     display: flex;
     flex-wrap: wrap;
-    padding-right: calc(var(--space-sm) * -1);
-    padding-left: calc(var(--space-sm) * -1);
+    padding-right: calc(u.getSpace("sm") * -1);
+    padding-left: calc(u.getSpace("sm") * -1);
 
     & > * {
         width: 100%;
         max-width: 100%;
         flex-shrink: 0;
-        padding-right: var(--space-sm);
-        padding-left: var(--space-sm);
+        @include u.paddingHorizontal("sm");
     }
 }
 
+%col {
+    position: relative;
+    width: 100%;
+    @include u.paddingHorizontal("sm");
+}
+
 .col {
+    @extend %col;
+    max-width: 100%;
     flex-grow: 1;
+    flex-basis: 0;
 
     &-auto {
+        @extend %col;
+        flex: 0 0 auto;
+        max-width: 100%;
         width: auto;
     }
 
     @for $i from 1 through 20 {
         &-#{$i} {
+            @extend %col;
             width: calc($i * 5%);
+        }
+    }
+
+    @each $name, $value in u.$breakpoints {
+        &-#{$name}-auto {
+            @extend %col;
+            width: auto;
+        }
+
+        @for $i from 1 through 20 {
+            &-#{$name}-#{$i} {
+                @extend %col;
+                width: calc($i * 5%);
+            }
         }
     }
 }

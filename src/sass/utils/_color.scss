@@ -1,80 +1,95 @@
 @use "sass:math";
-/* Utils Colors */
+
+// Valiables
 $colors: () !default;
 
 // Monotone
-$white: #ffffff !default;
-$light: #b4b4b4 !default;
-$gray: #787878 !default;
-$dark: #3c3c3c !default;
-$black: #000000 !default;
-
+$color-white: #ffffff !default;
+$color-light: #b4b4b4 !default;
+$color-gray: #787878 !default;
+$color-dark: #3c3c3c !default;
+$color-black: #000000 !default;
 $colors: map-merge(
     (
-        "white": $white,
-        "light": $light,
-        "gray": $gray,
-        "dark": $dark,
-        "black": $black,
+        "white": $color-white,
+        "light": $color-light,
+        "gray": $color-gray,
+        "dark": $color-dark,
+        "black": $color-black,
     ),
     $colors
 );
 
 // Primary
-$primary-red: #ff0000 !default;
-$primary-green: #00ff00 !default;
-$primary-blue: #0000ff !default;
-$primary-yellow: #ffff00 !default;
-$primary-magenta: #ff00ff !default;
-$primary-cyan: #00ffff !default;
-
+$color-primary-red: #ff0000 !default;
+$color-primary-green: #00ff00 !default;
+$color-primary-blue: #0000ff !default;
+$color-primary-yellow: #ffff00 !default;
+$color-primary-magenta: #ff00ff !default;
+$color-primary-cyan: #00ffff !default;
 $colors: map-merge(
     (
-        "primary-red": $primary-red,
-        "primary-green": $primary-green,
-        "primary-blue": $primary-blue,
-        "primary-yellow": $primary-yellow,
-        "primary-magenta": $primary-magenta,
-        "primary-cyan": $primary-cyan,
+        "primary-red": $color-primary-red,
+        "primary-green": $color-primary-green,
+        "primary-blue": $color-primary-blue,
+        "primary-yellow": $color-primary-yellow,
+        "primary-magenta": $color-primary-magenta,
+        "primary-cyan": $color-primary-cyan,
     ),
     $colors
 );
 
 // Etc.
-$red: #ff061f !default;
-$green: #00a656 !default;
-$blue: #0062ff !default;
-$yellow: #ffe500 !default;
-$magenta: #ff00e5 !default;
-$cyan: #00e5ff !default;
+$color-red: #ff061f !default;
+$color-green: #00a656 !default;
+$color-blue: #0062ff !default;
+$color-yellow: #ffe500 !default;
+$color-magenta: #ff00e5 !default;
+$color-cyan: #00e5ff !default;
 
-$pink: #ff0684 !default;
-$purple: #641ee5 !default;
-$orange: #ff7a00 !default;
-$teal: #00f8ab !default;
+$color-pink: #ff0684 !default;
+$color-purple: #641ee5 !default;
+$color-orange: #ff7a00 !default;
+$color-teal: #00f8ab !default;
 
 $colors: map-merge(
     (
-        "red": $red,
-        "green": $green,
-        "blue": $blue,
-        "yellow": $yellow,
-        "magenta": $magenta,
-        "cyan": $cyan,
+        "red": $color-red,
+        "green": $color-green,
+        "blue": $color-blue,
+        "yellow": $color-yellow,
+        "magenta": $color-magenta,
+        "cyan": $color-cyan,
+
+        "pink": $color-pink,
+        "purple": $color-purple,
+        "orange": $color-orange,
+        "teal": $color-teal,
     ),
     $colors
 );
 
+// set lighter and darker
 $light-colors: () !default;
 $dark-colors: () !default;
 @each $colorName, $colorCode in $colors {
     @if $colorName != "light" and $colorName != "dark" {
         @if $colorName != "white" {
-            $light-colors: map-merge((#{$colorName}: #{mix($light, $colorCode, 25%)}), $light-colors);
+            $light-colors: map-merge(
+                (
+                    $colorName: mix($color-light, $colorCode, 25%),
+                ),
+                $light-colors
+            );
         }
 
         @if $colorName != "black" {
-            $dark-colors: map-merge((#{$colorName}: #{mix($dark, $colorCode, 25%)}), $dark-colors);
+            $dark-colors: map-merge(
+                (
+                    $colorName: mix($color-dark, $colorCode, 25%),
+                ),
+                $dark-colors
+            );
         }
     }
 }
@@ -93,14 +108,35 @@ $dark-colors: () !default;
     }
 }
 
-@function colorContrast($targetColor) {
-    $colors: $light, $dark, $white, $black;
+// --------------------
 
-    $contrast-ratio: luminance($targetColor);
-    @if $contrast-ratio > 0.5 {
-        @return $dark;
+// Mixins
+@mixin color($key, $mode: null) {
+    color: getColor($key, $mode);
+}
+
+@mixin backgroundColor($key, $mode: null) {
+    background-color: getColor($key, $mode);
+}
+
+// --------------------
+
+// Functions
+@function getColor($key, $mode) {
+    @if $mode == "light" {
+        @return map-get($light-colors, $key);
+    } @else if $mode == "dark" {
+        @return map-get($dark-colors, $key);
     } @else {
-        @return $light;
+        @return map-get($colors, $key);
+    }
+}
+
+@function colorContrast($targetColor) {
+    @if luminance($targetColor) > 0.5 {
+        @return $color-dark;
+    } @else {
+        @return $color-light;
     }
 }
 

@@ -1,4 +1,7 @@
+@use "../utils" as u;
+
 /* Style Base */
+
 *,
 *::before,
 *::after {
@@ -7,15 +10,27 @@
 
 body {
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-  margin: var(--space-0);
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-md);
-  color: var(--color-light-black);
-  background-color: var(--color-dark-white);
+  font-weight: 400;
+  @include u.margin("xxs");
+  @include u.fontSize("sm");
+  @include u.lineHeight("md");
+  @include u.color("black", "light");
+  @include u.backgroundColor("white", "dark");
 }
 
 img {
   vertical-align: middle;
   border-style: none;
+}
+
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+pre {
+  display: block;
+  overflow: auto;
+  @include u.color("black", "light");
+  @include u.margin("md");
 }

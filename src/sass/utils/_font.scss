@@ -1,0 +1,39 @@
+// Valiables
+$font-size-xxxl: 2.5rem;
+$font-size-xxl: 2rem;
+$font-size-xl: 1.75rem;
+$font-size-lg: 1.5rem;
+$font-size-md: 1.25rem;
+$font-size-sm: 1rem;
+$font-size-xs: 0.75rem;
+$font-size-xxs: 0.5rem;
+$font-sizes: (
+    "xxxl": $font-size-xxxl,
+    "xxl": $font-size-xxl,
+    "xl": $font-size-xl,
+    "lg": $font-size-lg,
+    "md": $font-size-md,
+    "sm": $font-size-sm,
+    "xs": $font-size-xs,
+    "xxs": $font-size-xxs,
+) !default;
+
+:root {
+    @each $font-size, $value in $font-sizes {
+        --font-size-#{$font-size}: #{$value};
+    }
+}
+
+// --------------------
+
+// Mixins
+@mixin fontSize($key) {
+    font-size: getFontSize($key);
+}
+
+// --------------------
+
+// Functions
+@function getFontSize($key) {
+    @return map-get($font-sizes, $key);
+}

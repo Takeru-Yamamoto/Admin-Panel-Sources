@@ -1,4 +1,4 @@
-@use "../utils";
+@use "../utils" as u;
 
 /* Style Button */
 %button {
@@ -13,12 +13,11 @@
     @extend %button;
 }
 
-@each $colorName, $colorCode in utils.$colors {
+@each $colorName, $colorCode in u.$colors {
     .btn-#{$colorName} {
         @extend %button;
-        color: utils.colorContrast($colorCode);
+        color: u.colorContrast($colorCode);
         border: #{$colorCode};
         background-color: #{$colorCode};
-        
     }
 }

@@ -1,6 +1,15 @@
+@use "../utils" as u;
+
 /* Style Table */
 table {
     border-collapse: collapse;
+}
+
+caption {
+    text-align: left;
+    caption-side: bottom;
+    @include u.paddingVertical("sm");
+    @include u.color("gray", "light");
 }
 
 th {

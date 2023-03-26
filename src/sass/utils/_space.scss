@@ -1,15 +1,80 @@
-/* Utils Space */
+// Valiables
+$space-xxl: 2rem;
+$space-xl: 1.5rem;
+$space-lg: 1.25rem;
+$space-md: 1rem;
+$space-sm: 0.75rem;
+$space-xs: 0.5rem;
+$space-xxs: 0;
 $spaces: (
-  0: 0,
-  "xl": 1.5rem,
-  "lg": 1.25rem,
-  "md": 1rem,
-  "sm": 0.75rem,
-  "xs": 0.5rem,
+    "xxl": $space-xxl,
+    "xl": $space-xl,
+    "lg": $space-lg,
+    "md": $space-md,
+    "sm": $space-sm,
+    "xs": $space-xs,
+    "xxs": $space-xxs,
 ) !default;
 
 :root {
-  @each $space, $value in $spaces {
-    --space-#{$space}: #{$value};
-  }
+    @each $space, $value in $spaces {
+        --space-#{$space}: #{$value};
+    }
+}
+
+// --------------------
+
+// Mixins
+@mixin padding($key) {
+    padding: getSpace($key);
+}
+@mixin paddingTop($key) {
+    padding-top: getSpace($key);
+}
+@mixin paddingBottom($key) {
+    padding-bottom: getSpace($key);
+}
+@mixin paddingRight($key) {
+    padding-right: getSpace($key);
+}
+@mixin paddingLeft($key) {
+    padding-left: getSpace($key);
+}
+@mixin paddingVertical($key) {
+    @include paddingTop($key);
+    @include paddingBottom($key);
+}
+@mixin paddingHorizontal($key) {
+    @include paddingRight($key);
+    @include paddingLeft($key);
+}
+@mixin margin($key) {
+    margin: getSpace($key);
+}
+@mixin marginTop($key) {
+    margin-top: getSpace($key);
+}
+@mixin marginBottom($key) {
+    margin-bottom: getSpace($key);
+}
+@mixin marginRight($key) {
+    margin-right: getSpace($key);
+}
+@mixin marginLeft($key) {
+    margin-left: getSpace($key);
+}
+@mixin marginVertical($key) {
+    @include marginTop($key);
+    @include marginBottom($key);
+}
+@mixin marginHorizontal($key) {
+    @include marginRight($key);
+    @include marginLeft($key);
+}
+
+// --------------------
+
+// Functions
+@function getSpace($key) {
+    @return map-get($spaces, $key);
 }
