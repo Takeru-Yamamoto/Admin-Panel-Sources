@@ -1,0 +1,123 @@
+@use "./color";
+
+// Valiables
+$border-style-solid: solid;
+$border-style-dotted: dotted;
+$border-style-dashed: dashed;
+$border-style-double: double;
+$border-style-groove: groove;
+$border-style-ridge: ridge;
+$border-style-inset: inset;
+$border-style-outset: outset;
+$border-styles: (
+    "solid": $border-style-solid,
+    "dotted": $border-style-dotted,
+    "dashed": $border-style-dashed,
+    "double": $border-style-double,
+    "groove": $border-style-groove,
+    "ridge": $border-style-ridge,
+    "inset": $border-style-inset,
+    "outset": $border-style-outset,
+) !default;
+
+:root {
+    @each $border-style, $value in $border-styles {
+        --border-style-#{$border-style}: #{$value};
+    }
+}
+
+$border-width-thin: thin;
+$border-width-medium: medium;
+$border-width-thick: thick;
+$border-widths: (
+    "thin": $border-width-thin,
+    "medium": $border-width-medium,
+    "thick": $border-width-thick,
+) !default;
+
+:root {
+    @each $border-width, $value in $border-widths {
+        --border-width-#{$border-width}: #{$value};
+    }
+}
+
+$border-radius-lg: 1rem;
+$border-radius-md: 0.5rem;
+$border-radius-sm: 0.25rem;
+$border-radius-hr: 50%;
+$border-radiuses: (
+    "lg": $border-radius-lg,
+    "md": $border-radius-md,
+    "sm": $border-radius-sm,
+    "hr": $border-radius-hr,
+) !default;
+
+:root {
+    @each $border-radius, $value in $border-radiuses {
+        --border-radius-#{$border-radius}: #{$value};
+    }
+}
+
+// --------------------
+
+// Mixins
+@mixin borderStyle($key) {
+    border-style: getBorderStyle($key);
+}
+
+@mixin borderWidth($key) {
+    border-width: getBorderWidth($key);
+}
+
+@mixin borderColor($key, $mode: null) {
+    border-color: color.getColor($key, $mode);
+}
+
+@mixin borderRadius($key) {
+    border-radius: getBorderRadius($key);
+}
+
+@mixin border($width, $style, $color, $mode: null) {
+    border: getBorderWidth($width) getBorderStyle($style) color.getColor($color, $mode);
+}
+
+@mixin borderTop($width, $style, $color, $mode: null) {
+    border-top: getBorderWidth($width) getBorderStyle($style) color.getColor($color, $mode);
+}
+
+@mixin borderBottom($width, $style, $color, $mode: null) {
+    border-bottom: getBorderWidth($width) getBorderStyle($style) color.getColor($color, $mode);
+}
+
+@mixin borderRight($width, $style, $color, $mode: null) {
+    border-right: getBorderWidth($width) getBorderStyle($style) color.getColor($color, $mode);
+}
+
+@mixin borderLeft($width, $style, $color, $mode: null) {
+    border-left: getBorderWidth($width) getBorderStyle($style) color.getColor($color, $mode);
+}
+
+@mixin borderVertical($width, $style, $color, $mode: null) {
+    @include borderTop($width, $style, $color, $mode);
+    @include borderBottom($width, $style, $color, $mode);
+}
+
+@mixin borderHorizontal($width, $style, $color, $mode: null) {
+    @include borderRight($width, $style, $color, $mode);
+    @include borderLeft($width, $style, $color, $mode);
+}
+
+// --------------------
+
+// Functions
+@function getBorderStyle($key) {
+    @return map-get($border-styles, $key);
+}
+
+@function getBorderWidth($key) {
+    @return map-get($border-widths, $key);
+}
+
+@function getBorderRadius($key) {
+    @return map-get($border-radiuses, $key);
+}

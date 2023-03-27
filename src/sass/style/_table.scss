@@ -2,14 +2,23 @@
 
 /* Style Table */
 table {
+    width: 100%;
+    vertical-align: top;
     border-collapse: collapse;
+    overflow-x: auto;
+    @include u.color("black", "light");
+    @include u.backgroundColor("white", "dark");
 }
 
-caption {
-    text-align: left;
-    caption-side: bottom;
-    @include u.paddingVertical("sm");
-    @include u.color("gray", "light");
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
 }
 
 th {

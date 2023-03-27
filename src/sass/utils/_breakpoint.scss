@@ -3,13 +3,11 @@ $breakpoint-xl: 1280px;
 $breakpoint-lg: 1024px;
 $breakpoint-md: 768px;
 $breakpoint-sm: 640px;
-$breakpoint-xs: 0px;
 $breakpoints: (
     "xl": $breakpoint-xl,
     "lg": $breakpoint-lg,
     "md": $breakpoint-md,
     "sm": $breakpoint-sm,
-    "xs": $breakpoint-xs,
 ) !default;
 
 :root {
@@ -21,6 +19,11 @@ $breakpoints: (
 // --------------------
 
 // Mixins
+@mixin breakpoint($key) {
+    @media (min-width: getBreakpoint(#{$key})) {
+        @content;
+    }
+}
 
 // --------------------
 

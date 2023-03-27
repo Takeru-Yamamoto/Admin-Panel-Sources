@@ -2,7 +2,7 @@
 
 /* Style Border */
 hr {
-    @include u.marginVertical("md");
     border: 0;
-    border-top: 1px solid rgba(var(--color-black), 0.3);
+    @include u.marginVertical("md");
+    @include u.borderTop("thin", "solid", "white", "dark");
 }

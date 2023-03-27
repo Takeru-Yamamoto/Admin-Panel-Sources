@@ -122,7 +122,7 @@ $dark-colors: () !default;
 // --------------------
 
 // Functions
-@function getColor($key, $mode) {
+@function getColor($key, $mode: null) {
     @if $mode == "light" {
         @return map-get($light-colors, $key);
     } @else if $mode == "dark" {

@@ -6,6 +6,7 @@ $space-md: 1rem;
 $space-sm: 0.75rem;
 $space-xs: 0.5rem;
 $space-xxs: 0;
+$space-auto: auto;
 $spaces: (
     "xxl": $space-xxl,
     "xl": $space-xl,
@@ -14,6 +15,7 @@ $spaces: (
     "sm": $space-sm,
     "xs": $space-xs,
     "xxs": $space-xxs,
+    "auto": $space-auto,
 ) !default;
 
 :root {

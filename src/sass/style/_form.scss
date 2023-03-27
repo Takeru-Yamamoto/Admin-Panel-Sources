@@ -4,3 +4,47 @@
 [hidden] {
     display: none !important;
 }
+textarea {
+    resize: vertical;
+}
+label {
+    @include u.marginBottom("xs");
+}
+
+%form {
+    display: block;
+    width: 100%;
+    appearance: none;
+    background-clip: padding-box;
+    @include u.paddingVertical("xs");
+    @include u.paddingHorizontal("sm");
+    @include u.border("thin", "solid", "light");
+    @include u.borderRadius("md");
+
+    &[type="file"] {
+        overflow: hidden;
+    }
+
+    &:not(:disabled):not(:read-only) {
+        cursor: pointer;
+    }
+
+    &:focus {
+        outline: 0;
+        @include u.borderColor("blue", "light");
+    }
+}
+
+input,
+select,
+textarea {
+    @extend %form;
+}
+
+.form {
+    &-text {
+        @include u.marginTop("sm");
+        @include u.fontSize("xs");
+        @include u.color("gray", "light");
+    }
+}
