@@ -4,9 +4,6 @@
 [hidden] {
     display: none !important;
 }
-textarea {
-    resize: vertical;
-}
 label {
     @include u.marginBottom("xs");
 }
@@ -21,12 +18,14 @@ label {
     @include u.border("thin", "solid", "light");
     @include u.borderRadius("md");
 
-    &[type="file"] {
-        overflow: hidden;
-    }
-
     &:not(:disabled):not(:read-only) {
         cursor: pointer;
+    }
+
+    &:disabled,
+    &:read-only {
+        opacity: 1;
+        @include u.backgroundColor("white", "dark");
     }
 
     &:focus {
@@ -35,10 +34,38 @@ label {
     }
 }
 
-input,
-select,
-textarea {
+%placeholder {
+    opacity: 1;
+    @include u.color("gray", "dark");
+}
+
+input {
     @extend %form;
+
+    &[type="file"] {
+        overflow: hidden;
+    }
+
+    &::placeholder {
+        @extend %placeholder;
+    }
+
+    &::file-selector-button {
+        opacity: 1;
+    }
+}
+
+select {
+    @extend %form;
+}
+
+textarea {
+    resize: vertical;
+    @extend %form;
+
+    &::placeholder {
+        @extend %placeholder;
+    }
 }
 
 .form {

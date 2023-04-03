@@ -301,17 +301,11 @@ hr {
   display: none !important;
 }
 
-textarea {
-  resize: vertical;
-}
-
 label {
   margin-bottom: 0.5rem;
 }
 
-input,
-select,
-textarea {
+textarea, select, input {
   display: block;
   width: 100%;
   appearance: none;
@@ -323,23 +317,33 @@ textarea {
   border: thin solid #b4b4b4;
   border-radius: 0.5rem;
 }
-input[type=file],
-select[type=file],
-textarea[type=file] {
-  overflow: hidden;
-}
-input:not(:disabled):not(:read-only),
-select:not(:disabled):not(:read-only),
-textarea:not(:disabled):not(:read-only) {
+textarea:not(:disabled):not(:read-only), select:not(:disabled):not(:read-only), input:not(:disabled):not(:read-only) {
   cursor: pointer;
 }
-input:focus,
-select:focus,
-textarea:focus {
+textarea:disabled, select:disabled, input:disabled, textarea:read-only, select:read-only, input:read-only {
+  opacity: 1;
+  background-color: #cecece;
+}
+textarea:focus, select:focus, input:focus {
   outline: 0;
   border-color: #2d77ec;
 }
 
+textarea::placeholder, input::placeholder {
+  opacity: 1;
+  color: dimgray;
+}
+
+input[type=file] {
+  overflow: hidden;
+}
+input::file-selector-button {
+  opacity: 1;
+}
+
+textarea {
+  resize: vertical;
+}
 .form-text {
   margin-top: 0.75rem;
   font-size: 0.75rem;
